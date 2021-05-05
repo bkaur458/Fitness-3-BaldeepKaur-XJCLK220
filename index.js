@@ -151,7 +151,7 @@ function isAuthenticated(req, res, next) {
 	    console.log("user",req.user,"is logged in");
 	    next();
     } else {
-	res.redirect('/splash.html');  // send response telling
+	res.redirect('/public/splash.html');  // send response telling
 	// Browser to go to login page
     }
 }
