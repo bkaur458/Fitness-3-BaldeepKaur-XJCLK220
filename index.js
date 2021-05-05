@@ -11,6 +11,7 @@ const GoogleStrategy = require('passport-google-oauth20');
 // server162.site:[port]/auth/redirect
 const hiddenClientID = process.env['ClientID']
 const hiddenClientSecret = process.env['ClientSecret']
+let usrProfile
 
 // An object giving Passport the data Google wants for login.  This is 
 // the server's "note" to Google.
@@ -170,7 +171,8 @@ function gotProfile(accessToken, refreshToken, profile, done) {
     // Second arg to "done" will be passed into serializeUser,
     // should be key to get user out of database.
 
-    let userid = profile.id;  
+    let userid = profile.id;
+    usrProfile = profile  
     //console.log(userid)
     done(null, userid); 
 }

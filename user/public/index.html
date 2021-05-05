@@ -64,7 +64,17 @@
     <header>
       <div id="welcome">
 
-        <h1>Welcome back,<br><span id="username">Joey!</span></h1>
+        <h1>Welcome back,<br><span id="username"></span></h1>
+
+        <script>
+
+        let params = (new URL(document.location)).searchParams;
+        let name = params.get("userName");
+        console.log("User Name Received: "+name);
+        document.getElementById("username").textContent = name;
+      
+        </script>
+
         <img id="workoutImage" src="./images/header_image.png" alt="people playing sports" />
         <p class="subtitle">What activity session are you logging?</p>
       </div>
