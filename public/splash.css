@@ -1,0 +1,113 @@
+body {
+  font-family: "Open Sans", sans-serif;
+  background-color: #f2f2f2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  background-color: yellow;
+  flex-wrap: wrap;
+  align-items: stretch;
+  flex: 1;
+}
+
+#ImageAndMsgHalf{
+  display: flex;
+  flex-direction: column;
+  background-color: green;
+  flex: 1;
+  height: 250px;
+  padding: 20px;
+  margin: 20px;
+  align-items: center;
+}
+
+#appImage{
+  background-color: brown;
+  width: 230px;
+}
+
+#slogan{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 10px;
+  padding: 5px;
+  max-width: 345px;
+}
+
+#WelcomeAndSignInHalf{
+  display: flex;
+  flex-direction: column;
+  background-color: #333333;
+  flex: 1;
+  padding: 25px;
+  align-items: center;
+  height: 492px;
+  justify-content: space-evenly;
+}
+
+#logo{
+  width: 240px;
+}
+
+#welcomeMsg{
+  font-weight: bold;
+  color: #53e0cd;
+}
+
+a{
+   text-decoration: none;
+}
+
+#signInOptions{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 100px;
+}
+
+#logInText{
+  color: white;
+}
+
+button {
+  display: flex;
+  margin-top: 15px;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #FFFFFF;
+  font-family: 'Roboto', sans-serif;
+  color: dimgray;
+  align-items: center;
+  width: 200px;
+}
+
+#signInButtonImage{
+  height: 40px;
+}
+
+#signInText{
+  margin-left: auto;
+}
+
+@media only screen and (min-width: 425px){
+  #slogan{
+    padding: 5px 33px 5px 33px;
+    margin-top: 20px;
+  }
+}
+
+@media only screen and (min-width: 768px){
+  #ImageAndMsgHalf{
+    flex-grow: 1;
+  }
+  
+  #WelcomeAndSignInHalf{
+    flex-grow: 1;
+  }
+
+}
