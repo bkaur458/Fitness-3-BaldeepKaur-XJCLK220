@@ -3,7 +3,6 @@
 const sql = require('sqlite3');
 const util = require('util');
 
-
 // old-fashioned database creation code 
 
 // creates a new database object, not a 
@@ -15,10 +14,10 @@ let cmd = " SELECT name FROM sqlite_master WHERE type='table' AND name='Activity
 
 db.get(cmd, function (err, val) {
   if (val == undefined) {
-        console.log("No database file - creating one");
+        console.log("No Activity database file - creating one");
         createActivityTable();
   } else {
-        console.log("Database file found");
+        console.log("Activity Database file found");
   }
 });
 

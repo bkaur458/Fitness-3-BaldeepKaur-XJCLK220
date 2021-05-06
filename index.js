@@ -7,6 +7,11 @@ const db = require('./user/sqlWrap');       //T
 // functions that verify activities before putting them in database
 const act = require('./user/activity');     //T 
 
+// our database operations
+const dbop = require('./user/databaseOpsProfile');   
+// Promises-wrapped version of sqlite3
+const dbp = require('./user/sqlWrapProfile');     
+
 const express = require('express');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
@@ -223,10 +228,9 @@ app.get('/week', isAuthenticated,
 
 //********************************************LOG OUT BEGIN*/
 
-app.get('/logout', function(req, res){
-  console.log("Logging out");
-  req.logout();
-  res.redirect('/');
+app.get('/logout', async function(req, res){
+  await req.logout();
+  await res.redirect('/');
 });
 
 //**********************************************LOG OUT END*/
@@ -279,7 +283,7 @@ function isAuthenticated(req, res, next) {
 // function called during login, the second time passport.authenticate
 // is called (in /auth/redirect/),
 // once we actually have the profile data from Google. 
-function gotProfile(accessToken, refreshToken, profile, done) {
+async function gotProfile(accessToken, refreshToken, profile, done) {
     console.log("Google profile has arrived",profile);
     // here is a good place to check if user is in DB,
     // and to store him in DB if not already there. 
@@ -287,6 +291,12 @@ function gotProfile(accessToken, refreshToken, profile, done) {
     // should be key to get user out of database.
 
     let userid = profile.id;
+    let firstName = profile.name.givenName;
+    
+    await dbop.addProfile({userID: userid, firstName: firstName});
+      
+    response.send({ message: "I got your POST request"});
+
     usrProfile = profile  
     //console.log(userid)
     done(null, userid); 
