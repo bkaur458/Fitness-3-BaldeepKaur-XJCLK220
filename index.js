@@ -170,8 +170,8 @@ app.get('/reminder', isAuthenticated,
       currTime = (new Date()).getTime()
 
       // Get Most Recent Past Planned Activity and Delete All Past Planned Activities
-      let result = await dbo.get_most_recent_planned_activity_in_range(0, currTime)
-      await dbo.delete_past_activities_in_range(0, currTime);
+      let result = await dbo.get_most_recent_planned_activity_in_range(0, currTime, usrProfile.id)
+      await dbo.delete_past_activities_in_range(0, currTime, usrProfile.id);
 
       if (result != null){
         // Format Activity Object Properly
@@ -196,7 +196,7 @@ app.get('/week', isAuthenticated,
       
       /* Get Latest Activity in DB if not provided by query params */
       if (activity === undefined) {
-        let result = await dbo.get_most_recent_entry()
+        let result = await dbo.get_most_recent_entry(usrProfile.id)
         try {
           activity = result.activity
         } catch(error) {
@@ -207,7 +207,7 @@ app.get('/week', isAuthenticated,
       /* Get Activity Data for current Date and The Week Prior */
       let min = date - 6 * MS_IN_DAY
       let max = date
-      let result = await dbo.get_similar_activities_in_range(activity, min, max)
+      let result = await dbo.get_similar_activities_in_range(activity, min, max, usrProfile.id)
 
       /* Store Activity amounts in Buckets, Ascending by Date */
       let data = Array.from({length: 7}, (_, i) => {
@@ -335,10 +335,12 @@ const mySecret = process.env['ClientID']
 // call the async test function for the database
 // this fills the db with test data
 // in your system, you can delete this. 
+/*
 dbo.testDB().catch(
   function (error) {
     console.log("error:",error);}
 );
+*/
 
 // UNORGANIZED HELPER FUNCTIONS
 

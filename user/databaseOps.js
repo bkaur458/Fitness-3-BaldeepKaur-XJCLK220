@@ -25,16 +25,16 @@ const act = require('./activity');
 const insertDB = "insert into ActivityTable (activity, date, amount, userID) values (?,?,?,?)"
 const getOneDB = "select * from ActivityTable where activity = ? and date = ?";
 const allDB = "select * from ActivityTable where activity = ?";
-const deletePrevPlannedDB = "DELETE FROM ActivityTable WHERE amount < 0 and date BETWEEN ? and ?";
-const getMostRecentPrevPlannedDB = "SELECT rowIdNum, activity, MAX(date), amount FROM ActivityTable WHERE amount <= 0 and date BETWEEN ? and ?";
-const getMostRecentDB = "SELECT MAX(rowIdNum), activity, date, amount FROM ActivityTable";
-const getPastWeekByActivityDB = "SELECT * FROM ActivityTable WHERE activity = ? and date BETWEEN ? and ? ORDER BY date ASC";
+const deletePrevPlannedDB = "DELETE FROM ActivityTable WHERE amount < 0 and date BETWEEN ? and ? AND userID = ?";
+const getMostRecentPrevPlannedDB = "SELECT rowIdNum, activity, MAX(date), amount FROM ActivityTable WHERE amount <= 0 and date BETWEEN ? and ? AND userID = ?";
+const getMostRecentDB = "SELECT MAX(rowIdNum), activity, date, amount FROM ActivityTable WHERE userID = ?";
+const getPastWeekByActivityDB = "SELECT * FROM ActivityTable WHERE activity = ? and date BETWEEN ? and ? AND userID = ? ORDER BY date ASC";
 
 // Testing function loads some data into DB. 
 // Is called when app starts up to put fake 
 // data into db for testing purposes.
 // Can be removed in "production". 
-async function testDB () {
+async function testDB () {                                                                 //**********NO NEED 
   
   // for testing, always use today's date
   const today = new Date().getTime();
@@ -118,7 +118,7 @@ async function testDB () {
  * @param {number} activity.date - ms since 1970
  * @param {float} activity.scalar - measure of activity conducted
  */
-async function post_activity(activity) {
+async function post_activity(activity) {                                                          //**********DONE 
   try {
     await db.run(insertDB, act.ActivityToList(activity));
   } catch (error) {
@@ -137,9 +137,9 @@ async function post_activity(activity) {
  * @returns {number} activity.date - ms since 1970
  * @returns {float} activity.scalar - measure of activity conducted
  */
-async function get_most_recent_planned_activity_in_range(min, max) {
+async function get_most_recent_planned_activity_in_range(min, max, userID) {                       //**********DONE 
   try {
-    let results = await db.get(getMostRecentPrevPlannedDB, [min, max]);
+    let results = await db.get(getMostRecentPrevPlannedDB, [min, max, userID]);
     return (results.rowIdNum != null) ? results : null;
   }
   catch (error) {
@@ -157,9 +157,9 @@ async function get_most_recent_planned_activity_in_range(min, max) {
  * @returns {number} activity.date - ms since 1970
  * @returns {float} activity.scalar - measure of activity conducted
  */
-async function get_most_recent_entry() {
+async function get_most_recent_entry(userid) {                                                       //**********DONE 
   try {
-    let result = await db.get(getMostRecentDB, []);
+    let result = await db.get(getMostRecentDB, [userid]);
     return (result['MAX(rowIdNum)'] != null) ? result : null;
   }
   catch (error) {
@@ -177,9 +177,9 @@ async function get_most_recent_entry() {
  * @param {number} max - ms since 1970
  * @returns {Array.<Activity>} similar activities
  */
-async function get_similar_activities_in_range(activityType, min, max) {
+async function get_similar_activities_in_range(activityType, min, max, userid) {
   try {
-    let results = await db.all(getPastWeekByActivityDB, [activityType, min, max]);
+    let results = await db.all(getPastWeekByActivityDB, [activityType, min, max, userid]);
     return results;
   }
   catch (error) {
@@ -195,9 +195,9 @@ async function get_similar_activities_in_range(activityType, min, max) {
  * @param {number} min - ms since 1970
  * @param {number} max - ms since 1970
  */
-async function delete_past_activities_in_range(min, max) {
+async function delete_past_activities_in_range(min, max, userID) {                              //**********DONE 
   try {
-    await db.run(deletePrevPlannedDB, [min, max]);
+    await db.run(deletePrevPlannedDB, [min, max, userID]);
   }
   catch (error) {
     console.log(error);
