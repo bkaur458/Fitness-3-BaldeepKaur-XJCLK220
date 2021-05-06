@@ -15,10 +15,10 @@ const viewAllProfiles = "select * from Profile";
 async function addProfile(profile){
   try {
 
-    /*
+
     let rows = await dbp.all(viewAllProfiles);
-    console.log("rows:\n" + rows);
-    */
+    console.log("rows:\n\n\n" );
+    console.log(JSON.stringify(rows));
 
     console.log("profile.userID: "+profile.userID)
     let matches = await dbp.all(checkIfUserExists, [profile.userID]);
