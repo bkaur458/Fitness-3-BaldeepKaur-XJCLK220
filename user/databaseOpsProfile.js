@@ -9,11 +9,19 @@ module.exports = {
 
 const insertProfile = "insert into Profile (userID, firstName) values (?,?)"
 const checkIfUserExists = "select * from Profile where userID = ?";
+const viewAllProfiles = "select * from Profile";
 
 //Add the new user into the Profile table
 async function addProfile(profile){
   try {
-    let matches = await dbp.run(checkIfUserExists, [profile.userID]);
+
+    /*
+    let rows = await dbp.all(viewAllProfiles);
+    console.log("rows:\n" + rows);
+    */
+
+    console.log("profile.userID: "+profile.userID)
+    let matches = await dbp.all(checkIfUserExists, [profile.userID]);
     console.log("matches: "+matches)
     //If User does not exist in the Profile table
     if (matches==undefined){
