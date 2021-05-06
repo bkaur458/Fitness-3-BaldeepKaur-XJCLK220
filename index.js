@@ -151,7 +151,9 @@ app.post('/store', isAuthenticated,
     async function(request, response, next) {
       console.log("Server recieved a post request at", request.url);
 
-      let activity = act.Activity(request.body)
+      let newObj = request.body
+      newObj.userID = usrProfile.id
+      let activity = act.Activity(newObj)
       await dbo.post_activity(activity)
       
       response.send({ message: "I got your POST request"});

@@ -22,7 +22,7 @@ const db = require('./sqlWrap');
 const act = require('./activity');
 
 // SQL commands for ActivityTable
-const insertDB = "insert into ActivityTable (activity, date, amount) values (?,?,?)"
+const insertDB = "insert into ActivityTable (activity, date, amount, userID) values (?,?,?,?)"
 const getOneDB = "select * from ActivityTable where activity = ? and date = ?";
 const allDB = "select * from ActivityTable where activity = ?";
 const deletePrevPlannedDB = "DELETE FROM ActivityTable WHERE amount < 0 and date BETWEEN ? and ?";
@@ -96,9 +96,9 @@ async function testDB () {
   }
   
 
-  await db.run(insertDB,["yoga", planDate2, -1]);
-  await db.run(insertDB,["yoga", planDate3, -1]);
-  await db.run(insertDB,["run", planDate2, -1]);
+  await db.run(insertDB,["yoga", planDate2, -1, 33333]);
+  await db.run(insertDB,["yoga", planDate3, -1, 33333]);
+  await db.run(insertDB,["run", planDate2, -1, 33333]);
 
   // some examples of getting data out of database
   

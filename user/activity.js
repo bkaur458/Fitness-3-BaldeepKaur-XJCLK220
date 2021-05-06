@@ -29,13 +29,15 @@ function Activity(obj) {
         activity = {
             date: obj.date,
             activity: obj.activity,
-            scalar: obj.scalar
+            scalar: obj.scalar,
+            userID: obj.userID
         }
     } else if (obj.date && obj.activity) {
         activity = {
             date: obj.date,
             activity: obj.activity,
-            scalar: -1
+            scalar: -1,
+            userID: obj.userID
         }
     }
 
@@ -68,5 +70,5 @@ function ActivityToList(activity) {
         throw new ActivityFormatException(activity)
     }
 
-    return [activity.activity, activity.date, activity.scalar]
+    return [activity.activity, activity.date, activity.scalar, activity.userID]
 }
