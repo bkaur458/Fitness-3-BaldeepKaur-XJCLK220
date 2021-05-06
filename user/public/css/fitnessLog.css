@@ -4,6 +4,15 @@ body {
   min-width: 350px;
 }
 
+#tractivityLogo{
+  width: 200px;
+}
+
+h3{
+  margin-left: auto;  
+  cursor: pointer;
+}
+
 strong {
   font-weight: bold;
 }
@@ -24,6 +33,7 @@ nav {
   color: white;
   font-weight: 600;
   font-size: 1.7rem;
+  display: flex;
 }
 
 header {

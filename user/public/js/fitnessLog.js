@@ -30,6 +30,10 @@ submit_past_activity_button.addEventListener("click", submit_past_activity_oncli
 let submit_future_activity_button = document.getElementById("submitFutureActivityButton")
 submit_future_activity_button.addEventListener("click", submit_future_activity_onclick)
 
+/* Future Activity 'Submit' Button - Submit Form */
+let logout_text = document.getElementById("logoutText")
+logout_text.addEventListener("click", logout_action)
+
 
 /**
  * ONCLICK - Hide 'Add New Activity' Button under the Past Section and Show
@@ -232,6 +236,10 @@ function create_submission_success_element(beg, mid, end) {
   return newMessage  
 }
 
+async function logout_action(){
+   await fetch('/logout');
+}
+
 
 /**
  * Checks if past activity data is valid
@@ -329,3 +337,4 @@ function date_to_UTC_datetime(date) {
         utcDate.getDay()
     )
 }
+

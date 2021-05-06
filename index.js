@@ -221,6 +221,16 @@ app.get('/week', isAuthenticated,
 
 ///////// QUERIES FROM FITNESS 2 END 
 
+//********************************************LOG OUT BEGIN*/
+
+app.get('/logout', function(req, res){
+  console.log("Logging out");
+  req.logout();
+  res.redirect('/');
+});
+
+//**********************************************LOG OUT END*/
+
 // finally, file not found, if we cannot handle otherwise.
 app.use( fileNotFound );
 
