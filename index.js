@@ -298,8 +298,6 @@ async function gotProfile(accessToken, refreshToken, profile, done) {
     }catch(error){
       console.log("server error: "+error)
     }
-      
-    response.send({ message: "I got your POST request"});
 
     usrProfile = profile  
     //console.log(userid)

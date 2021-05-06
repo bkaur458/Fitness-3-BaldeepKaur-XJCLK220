@@ -22,7 +22,7 @@ async function addProfile(profile){
 
     console.log("profile.userID: "+profile.userID)
     let matches = await dbp.all(checkIfUserExists, [profile.userID]);
-    console.log("matches: "+matches)
+    console.log("matches: "+JSON.stringify(matches))
     //If User does not exist in the Profile table
     if (matches==undefined){
       //Add the user in the Profile Table 
