@@ -23,7 +23,7 @@ dbp.get(cmdp, function (err, val) {
 function createProfileTable() {
   // explicitly declaring the rowIdNum protects rowids from changing if the 
   // table is compacted; not an issue here, but good practice
-  const cmd = 'CREATE TABLE Profile (userID TEXT, firstName TEXT)';
+  const cmd = 'CREATE TABLE IF NOT EXISTS Profile (userID TEXT, firstName TEXT)';
   dbp.run(cmd, function(err, val) {
     if (err) {
       console.log("Profile Database creation failure",err.message);

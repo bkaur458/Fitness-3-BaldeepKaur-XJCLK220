@@ -237,7 +237,7 @@ function create_submission_success_element(beg, mid, end) {
 }
 
 async function logout_action(){
-   await fetch('/logout');
+  await fetch('/logout');
 }
 
 

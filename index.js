@@ -232,6 +232,7 @@ app.get('/week', isAuthenticated,
 
 app.get('/logout', async function(req, res){
   await req.logout();
+  await req.clearCookie();
   await res.redirect('/');
 });
 
