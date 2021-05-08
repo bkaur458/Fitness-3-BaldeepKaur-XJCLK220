@@ -1,16 +1,16 @@
 'use strict'
 
 // our database operations
-const dbo = require('./user/databaseOps');  //T 
+const dbo = require('./databaseOps');  //T 
 // Promises-wrapped version of sqlite3
-const db = require('./user/sqlWrap');       //T 
+const db = require('./sqlWrap');       //T 
 // functions that verify activities before putting them in database
-const act = require('./user/activity');     //T 
+const act = require('./activity');     //T 
 
 // our database operations
-const dbop = require('./user/databaseOpsProfile');   
+const dbop = require('./databaseOpsProfile');   
 // Promises-wrapped version of sqlite3
-const dbp = require('./user/sqlWrapProfile');     
+const dbp = require('./sqlWrapProfile');     
 
 const express = require('express');
 const passport = require('passport');
@@ -112,7 +112,7 @@ app.get('/auth/accepted',
 	function (req, res) {
 	    console.log('Logged in and using cookies!')
       // tell browser to get the hidden main page of the app
-	    res.redirect(`/public/index.html?userName=${usrProfile.displayName}`);
+	    res.redirect(`/public/index.html?userName=${usrProfile.name.givenName}`);
 	});
 
 // static files in /user are only available after login
